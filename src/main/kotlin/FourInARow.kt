@@ -12,21 +12,109 @@ class FourInARow
     private val board = Array(GameConstants.ROWS) { IntArray(GameConstants.COLS){0} }
 
     override fun clearBoard() {
+        for(i in 0 until GameConstants.ROWS){
+            for(j in 0 until GameConstants.COLS){
+                board[i][j] = GameConstants.EMPTY
+            }
+        }
         // TODO Auto-generated method stub
     }
 
     override fun setMove(player: Int, location: Int) {
-       
+       if(player == 1){
+           val row = location/GameConstants.ROWS
+           val column = location%GameConstants.COLS
+           board[row][column] = 1
+       }
+        if(player == 2){
+            val row = location/GameConstants.ROWS
+            val column = location%GameConstants.COLS
+            board[row][column] = 2
+        }
         // TODO Auto-generated method stub
     }
 
     override val computerMove: Int
-        get() =// TODO Auto-generated method stub
-            0
+        get() {
+            val total: Int = GameConstants.ROWS * GameConstants.COLS
+            var randBool : Boolean = false
+            while(!randBool){
+                val random: Int = (0 until total).random()
+                val row = random / GameConstants.ROWS
+                val column = random % GameConstants.COLS
+                if(board[row][column] == GameConstants.EMPTY){
+                    return random
+                }
+            }
+            return 404
+        }
+    // TODO Auto-generated method stub
 
     override fun checkForWinner(): Int {
+        // this is for horizontal
+        for(p in 0 until GameConstants.ROWS){
+            for(x in 0 until GameConstants.COLS-3){
+                if(board[p][x] != 0 && board[p][x] == board[p][x+1] && board[p][x] == board[p][x+2] && board[p][x] == board[p][x+3]){
+                    if(board[p][x] == 1){
+                        return GameConstants.BLUE_WON
+                    } else {
+                        return GameConstants.RED_WON
+                    }
+                }
+            }
+        }
+
+        // this is for vertical
+        for (s in 0 until GameConstants.ROWS - 3){
+            for(t in 0 until GameConstants.COLS){
+                if(board[s][t] != 0 && board[s][t] == board[s + 1][t] && board[s][t] == board[s + 2][t] && board[s][t] == board[s + 3][t]){
+                    if(board[s][t] == 1){
+                        return GameConstants.BLUE_WON
+                    } else {
+                        return GameConstants.RED_WON
+                    }
+                }
+            }
+        }
+        for( l in 0 until GameConstants.ROWS-3){
+            for (m in 0 until GameConstants.COLS-3){
+                if(board[l][m] != 0 && board[l][m] == board[l + 1][m + 1] && board[l][m] == board[l + 2][m + 2] && board[l][m] == board[l + 3][m + 3]){
+                    if(board[l][m] == 1){
+                        return GameConstants.BLUE_WON
+                    } else {
+                        return GameConstants.RED_WON
+                    }
+                }
+            }
+        }
+        for(s in 0 until GameConstants.ROWS-3){
+            for(t in 3 until GameConstants.COLS){
+                if(board[s][t] != 0 && board[s][t] == board[s + 1][t - 1] && board[s][t] == board[s + 2][t - 2] && board[s][t] == board[s + 3][t - 3]){
+                    if(board[s][t] == 1){
+                        return GameConstants.BLUE_WON
+                    } else {
+                        return GameConstants.RED_WON
+                    }
+                }
+            }
+        }
+        var tieCheck : Boolean = true
+        for(i in 0 until GameConstants.ROWS){
+            for(j in 0 until GameConstants.COLS){
+                if(board[i][j] == 0){
+                    tieCheck = false
+                    break
+                }
+            }
+        }
+        if(tieCheck == true){
+            return GameConstants.TIE
+        }
+
+        //check for diagonal
+
         // TODO Auto-generated method stub
-        return 0
+        return 404
     }
 
     /**
@@ -36,9 +124,7 @@ class FourInARow
         for (row in 0 until GameConstants.ROWS) {
             for (col in 0 until GameConstants.COLS) {
                 printCell(board[row][col]) // print each of the cells
-                if(col != GameConstants.COLS){
-                    print(GameConstants.RED)
-                }
+
                 if (col != GameConstants.COLS - 1) {
                     print("|") // print vertical partition
                 }
@@ -49,7 +135,6 @@ class FourInARow
                 println("-----------------------") // print horizontal partition
             }
         }
-        println()
         println()
         println()
     }
