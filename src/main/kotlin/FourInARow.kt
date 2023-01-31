@@ -51,7 +51,7 @@ class FourInARow
     // TODO Auto-generated method stub
 
     override fun checkForWinner(): Int {
-        // this is for horizontal
+        // Finds horizontal winners
         for(p in 0 until GameConstants.ROWS){
             for(x in 0 until GameConstants.COLS-3){
                 if(board[p][x] != 0 && board[p][x] == board[p][x+1] && board[p][x] == board[p][x+2] && board[p][x] == board[p][x+3]){
@@ -64,7 +64,7 @@ class FourInARow
             }
         }
 
-        // this is for vertical
+        // Checks for vertical winners
         for (s in 0 until GameConstants.ROWS - 3){
             for(t in 0 until GameConstants.COLS){
                 if(board[s][t] != 0 && board[s][t] == board[s + 1][t] && board[s][t] == board[s + 2][t] && board[s][t] == board[s + 3][t]){
@@ -76,6 +76,7 @@ class FourInARow
                 }
             }
         }
+        //Checks for diagonal pointing to the right
         for( l in 0 until GameConstants.ROWS-3){
             for (m in 0 until GameConstants.COLS-3){
                 if(board[l][m] != 0 && board[l][m] == board[l + 1][m + 1] && board[l][m] == board[l + 2][m + 2] && board[l][m] == board[l + 3][m + 3]){
@@ -87,6 +88,7 @@ class FourInARow
                 }
             }
         }
+        //Checks for diagonal pointing to the left
         for(s in 0 until GameConstants.ROWS-3){
             for(t in 3 until GameConstants.COLS){
                 if(board[s][t] != 0 && board[s][t] == board[s + 1][t - 1] && board[s][t] == board[s + 2][t - 2] && board[s][t] == board[s + 3][t - 3]){
@@ -98,6 +100,7 @@ class FourInARow
                 }
             }
         }
+        //Finally checks for ties
         var tieCheck : Boolean = true
         for(i in 0 until GameConstants.ROWS){
             for(j in 0 until GameConstants.COLS){
@@ -111,9 +114,6 @@ class FourInARow
             return GameConstants.TIE
         }
 
-        //check for diagonal
-
-        // TODO Auto-generated method stub
         return 404
     }
 
@@ -146,8 +146,8 @@ class FourInARow
     fun printCell(content: Int) {
         when (content) {
             GameConstants.EMPTY -> print("   ")
-            GameConstants.BLUE -> print(" B ")
-            GameConstants.RED -> print(" R ")
+            GameConstants.BLUE -> print(" H ")
+            GameConstants.RED -> print(" C ")
         }
     }
 }
