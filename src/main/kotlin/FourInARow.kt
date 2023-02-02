@@ -1,7 +1,9 @@
+import com.sun.tools.javac.Main
+
 /**
- * TicTacToe class implements the interface
- * @author relkharboutly
- * @date 2/12/2022
+ * TicTacToe class implements the interface IGame.kt
+ * @author Aaryan Kapoor
+ * @date 2/2/2023
  */
 class FourInARow
 /**
@@ -126,13 +128,15 @@ class FourInARow
                 printCell(board[row][col]) // print each of the cells
 
                 if (col != GameConstants.COLS - 1) {
-                    print("|") // print vertical partition
+                    print("║") // print vertical partition
                 }
 
             }
             println()
+
             if (row != GameConstants.ROWS - 1) {
-                println("-----------------------") // print horizontal partition
+                //println("-----------------------") // print horizontal partition
+                println("╔==╦===╦===╦===╦===╦===╗")
             }
         }
         println()
